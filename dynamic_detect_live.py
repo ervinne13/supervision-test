@@ -50,7 +50,7 @@ while True:
         score_text = f"{score:.2f}"
         cv2.rectangle(frame, (box[0], box[1]), (box[2], box[3]), (0, 255, 0), 2)
         cv2.putText(frame, f"{label_text} {score_text}", (box[0], box[1] - 10),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+                    cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 255, 0), 2)
 
     cv2.imshow("OwlViT Detection", frame)
     # Exit on pressing 'q'
