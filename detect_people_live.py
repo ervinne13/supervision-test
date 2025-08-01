@@ -18,10 +18,10 @@ while True:
 
     results = model(frame, verbose=False)[0]
     detections = sv.Detections.from_ultralytics(results)
-    # TODO: Enum for person class = 0, ideally something that already exists in supervision
-    # but there seems to be no built in enum, you just really put the class_id manually based on the docs.
-    person_detections = detections[detections.class_id == 0]
-    tracked = tracker.update_with_detections(person_detections)
+    
+    # Temporarily remove the filter so we can explore all class ids
+    # person_detections = detections[detections.class_id == 0]
+    tracked = tracker.update_with_detections(detections)
     annotated = box_annotator.annotate(scene=frame.copy(), detections=tracked)
     annotated = label_annotator.annotate(scene=annotated, detections=tracked)
 
