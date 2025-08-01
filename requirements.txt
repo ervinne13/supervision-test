@@ -5,3 +5,8 @@ numpy
 # For detect people
 supervision
 ultralytics
+
+# For transformers based, dynamic no training detection
+transformers 
+torchvision 
+matplotlib
