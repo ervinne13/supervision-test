@@ -1,0 +1,7 @@
+opencv-python
+mediapipe
+numpy
+
+# For detect people
+supervision
+ultralytics
