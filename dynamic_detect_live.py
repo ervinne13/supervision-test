@@ -1,10 +1,13 @@
+
 import torch
 import cv2
 from transformers import OwlViTProcessor, OwlViTForObjectDetection
 from PIL import Image
 import numpy as np
+import argparse
 
-# https://huggingface.co/google/owlvit-‰base-patch32
+
+# https://huggingface.co/google/owlvit-base-patch32
 processor = OwlViTProcessor.from_pretrained("google/owlvit-base-patch32")
 model = OwlViTForObjectDetection.from_pretrained("google/owlvit-base-patch32")
 
@@ -12,13 +15,15 @@ model = OwlViTForObjectDetection.from_pretrained("google/owlvit-base-patch32")
 # Uncomment this later when we move this to the ubuntu machine
 # model.to("cuda")
 
-prompt = [
-    "a person",
-    "digital watch"
-]
-
+parser = argparse.ArgumentParser(description="OwlViT live detection")
 # 0, 1, 2, depending on the camera setup. 1 is what worked for apple continuity camera
-cap = cv2.VideoCapture(1)
+parser.add_argument('--camera', type=int, default=1, help='Camera index for cv2.VideoCapture')
+parser.add_argument('--prompt', type=str, required=True, help='Comma-separated detection prompts, e.g. "a person, digital watch"')
+args = parser.parse_args()
+
+prompt = [p.strip() for p in args.prompt.split(",") if p.strip()]
+
+cap = cv2.VideoCapture(args.camera)
 
 while True:
     ret, frame = cap.read()
